@@ -2,6 +2,10 @@
   "name": "app",
   "version": "0.0.0",
   "scripts": {
+    "sync:docs": "node scripts/sync-docs.mjs",
+    "prestart": "npm run sync:docs",
+    "prebuild": "npm run sync:docs",
+    "pretest": "npm run sync:docs",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -11,10 +15,12 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.3.0",
+    "@angular/cdk": "^17.3.10",
     "@angular/common": "^17.3.0",
     "@angular/compiler": "^17.3.0",
     "@angular/core": "^17.3.0",
     "@angular/forms": "^17.3.0",
+    "@angular/material": "^17.3.10",
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",

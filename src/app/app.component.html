@@ -1,1 +1,29 @@
-<router-outlet />
+<div class="app-shell">
+	<header class="app-header">
+		<mat-toolbar class="nav-toolbar">
+			<div class="toolbar-content">
+				<a class="brand-link" routerLink="/">
+					<span class="brand-title">AI Agents Frontend</span>
+					<span class="brand-subtitle">Dokumentation, setup og beslutningsstotte</span>
+				</a>
+
+				<nav class="nav-links" aria-label="Hovednavigation">
+					<a
+						mat-button
+						routerLink="/"
+						[routerLinkActiveOptions]="{ exact: true }"
+						routerLinkActive="active-link"
+					>
+						Forside
+					</a>
+					<a mat-button routerLink="/agent-setup" routerLinkActive="active-link">Agent setup</a>
+					<a mat-button routerLink="/why-agents" routerLinkActive="active-link">Hvorfor agents</a>
+				</nav>
+			</div>
+		</mat-toolbar>
+	</header>
+
+	<main class="app-content">
+		<router-outlet />
+	</main>
+</div>

@@ -1,38 +1,49 @@
 <main class="landing-page">
-  <section class="hero-card">
-    <div class="brand-row">
-      <div class="brand-mark" aria-hidden="true">AG</div>
-      <div>
-        <p class="eyebrow">Agent-built app</p>
-        <p class="brand-name">Agent Frontend Studio</p>
+	@if (page(); as pageContent) {
+  <mat-card class="hero-card" appearance="outlined">
+    <mat-card-content>
+      <div class="hero-header">
+        <div class="brand-mark" aria-hidden="true">AG</div>
+        <div>
+          <p class="eyebrow">{{ pageContent.eyebrow }}</p>
+          <p class="brand-name">{{ pageContent.brandName }}</p>
+        </div>
       </div>
-    </div>
 
-    <h1>Byg frontend hurtigere med agents.</h1>
+      <h1 class="page-title mat-headline-medium">{{ pageContent.title }}</h1>
 
-    <p class="intro">
-      Denne app er lavet med specialiserede agents, skills og instruktioner, så
-      frontendarbejde kan holdes enkelt, konsistent og hurtigt at videreudvikle.
-    </p>
+      <p class="intro">{{ pageContent.intro }}</p>
 
-    <div class="cta-row">
-      <a class="cta-primary" href="#agent-workflow">Se agent setup</a>
-      <a class="cta-secondary" href="#agent-workflow">Hvorfor agents?</a>
-    </div>
-
-    <div class="feature-list" id="agent-workflow" aria-label="Nøglepunkter">
-      <div class="feature-item">
-        <span class="feature-label">Bygget med</span>
-        <strong>Angular, agents og fokuserede workflows</strong>
+      <div class="cta-row">
+        <a mat-flat-button routerLink="/agent-setup">{{ pageContent.actions.primaryLabel }}</a>
+        <a mat-stroked-button routerLink="/why-agents">{{ pageContent.actions.secondaryLabel }}</a>
       </div>
-      <div class="feature-item">
-        <span class="feature-label">Dækker</span>
-        <strong>Frontend, forms, state, performance og tests</strong>
-      </div>
-      <div class="feature-item">
-        <span class="feature-label">Målet</span>
-        <strong>Klarere beslutninger og hurtigere iteration</strong>
-      </div>
-    </div>
-  </section>
+
+      <section class="feature-list" id="agent-workflow" aria-label="Nøglepunkter">
+        @for (highlight of pageContent.highlights; track highlight.label) {
+        <mat-card class="feature-item" appearance="outlined">
+          <mat-card-content>
+          <span class="feature-label">{{ highlight.label }}</span>
+          <strong>{{ highlight.value }}</strong>
+          </mat-card-content>
+        </mat-card>
+        }
+      </section>
+    </mat-card-content>
+  </mat-card>
+	} @else {
+	<mat-card class="hero-card" appearance="outlined">
+		<mat-card-content>
+			<div class="hero-header">
+				<div class="brand-mark" aria-hidden="true">AG</div>
+				<div>
+					<p class="eyebrow">Agent-built app</p>
+					<p class="brand-name">Agent Frontend Studio</p>
+				</div>
+			</div>
+      <h1 class="page-title mat-headline-medium">Indlæser dokumentation...</h1>
+			<p class="intro">Forsiden henter indhold direkte fra `.github`-dokumentationen.</p>
+		</mat-card-content>
+	</mat-card>
+	}
 </main>

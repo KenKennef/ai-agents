@@ -1,27 +1,34 @@
-# App
+# AI Agents Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Dette repository er en Angular 17 frontend, der demonstrerer et agent-baseret setup for frontend-arbejde.
+Appen bruger Angular Material som fælles designgrundlag og viser i UI'et både hvordan agent-setupet er organiseret,
+og hvilke styrker og svagheder der følger med agent driven development.
 
-## Development server
+## Sider i appen
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- `/` giver et kort overblik over projektet og linker videre til de to forklarende sider.
+- `/agent-setup` beskriver den nuværende opsætning med agent, skills, instructions, delt topnavigation og Material-baserede UI-konventioner.
+- `/why-agents` forklarer fordele og ulemper ved agent driven development i praksis.
 
-## Code scaffolding
+## Teknisk retning
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Angular standalone components og router-baserede feature-sider.
+- Angular Material med et delt custom theme i `src/theme/_material-theme.scss`.
+- Dokumentationsdrevne tekstsektioner, der læses fra `.github/app-content/*.md` og synkroniseres til assets før `start`, `build` og `test`.
+- Fallback til genererede markdown-strenge i appen, så siderne stadig kan rendere selv hvis docs-assets midlertidigt ikke bliver servet.
+- Fælles app-shell med topnavigation og layouts, der udnytter mere af den tilgængelige bredde på større skærme.
+- Agent-dokumentation og specialiseringer samlet under `.github/`.
 
-## Build
+## Udvikling
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- `npm start` starter udviklingsserveren på `http://localhost:4200/`.
+- `npm run build` laver en produktionsbuild i `dist/app`.
+- `npm test` kører enhedstests via Karma.
+- `npm run sync:docs` kopierer `.github/app-content` til `src/assets/docs` og regenererer indlejrede docs-fallbacks.
 
-## Running unit tests
+## Dokumentation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- [`.github/README.md`](.github/README.md) beskriver agenten, skills og instructions.
+- `.github/app-content/landing-page.md` er kilden til teksterne på `/`.
+- `.github/app-content/agent-setup.md` er kilden til teksterne på `/agent-setup`.
+- `.github/app-content/why-agents.md` er kilden til teksterne på `/why-agents`.

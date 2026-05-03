@@ -1,0 +1,60 @@
+<main class="agent-setup-page">
+	<section class="setup-shell">
+		@if (page(); as pageContent) {
+
+		<mat-card class="hero-card" appearance="outlined">
+			<mat-card-content>
+			<p class="eyebrow">{{ pageContent.eyebrow }}</p>
+			<h1 class="page-title mat-headline-medium">{{ pageContent.title }}</h1>
+			<p class="intro">{{ pageContent.intro }}</p>
+
+			<div class="stats" aria-label="Overblik over setup">
+				@for (stat of pageContent.stats; track stat.label) {
+					<mat-card class="stat-card" appearance="outlined">
+						<mat-card-content>
+						<span class="stat-label">{{ stat.label }}</span>
+						<strong>{{ stat.value }}</strong>
+						</mat-card-content>
+					</mat-card>
+				}
+			</div>
+			</mat-card-content>
+		</mat-card>
+
+		<section class="sections" aria-label="Agent setup sektioner">
+			@for (section of pageContent.sections; track section.id) {
+				<mat-card class="section-card" appearance="outlined" [id]="section.id">
+					<mat-card-content>
+					<p class="section-eyebrow">{{ section.eyebrow }}</p>
+					<h2>{{ section.title }}</h2>
+					<p class="section-description">{{ section.description }}</p>
+					<mat-divider />
+
+					<ul>
+						@for (point of section.points; track point) {
+							<li>{{ point }}</li>
+						}
+					</ul>
+					</mat-card-content>
+				</mat-card>
+			}
+		</section>
+
+		<mat-card class="next-step-card" appearance="outlined" aria-labelledby="dynamic-setup-heading">
+			<mat-card-content>
+			<p class="section-eyebrow">{{ pageContent.nextStep.eyebrow }}</p>
+			<h2 id="dynamic-setup-heading">{{ pageContent.nextStep.title }}</h2>
+			<p>{{ pageContent.nextStep.text }}</p>
+			</mat-card-content>
+		</mat-card>
+		} @else {
+			<mat-card class="hero-card" appearance="outlined">
+				<mat-card-content>
+					<p class="eyebrow">Agent setup</p>
+					<h1 class="page-title mat-headline-medium">Indlæser dokumentation...</h1>
+					<p class="intro">Siden henter indhold direkte fra `.github`-dokumentationen.</p>
+				</mat-card-content>
+			</mat-card>
+		}
+	</section>
+</main>
