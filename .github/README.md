@@ -1,6 +1,7 @@
 # Angular Frontend Copilot Setup
 
 Denne mappe indeholder en specialiseret Copilot-agent og et sæt fokuserede skills til Angular-frontendarbejde.
+Den aktuelle frontend viser setupet i appen via ruterne `/`, `/agent-setup` og `/why-agents`, og UI'et følger Angular Material-konventioner med delt topnavigation og dokumentationsdrevne tekster.
 
 ## Brug Agenten Når
 - Opgaven er bred og kræver Angular-overblik på tværs af komponenter, routing, formularer, styling og state.
@@ -32,3 +33,6 @@ Skills:
 - Opdater agentens beskrivelse, hvis der kommer nye frontend-ansvarsområder.
 - Tilføj nye skills, når et workflow bliver gentaget ofte nok til at fortjene en separat specialist.
 - Hold beskrivelser keyword-rige, så discovery fungerer stabilt.
+- Hold UI-teksterne i `.github/app-content/*.md` synkroniseret med denne dokumentation, så appen viser det samme billede som `.github`-materialet, også på forsiden.
+- Bevar Material theme, topnavigation og layout-konventioner, når nye informationssider eller flows tilføjes.
+- Husk at `npm run sync:docs` regenererer både assets og indlejrede docs-fallbacks, så tekstændringer slår igennem i hele appen.

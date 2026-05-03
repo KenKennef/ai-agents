@@ -1,0 +1,65 @@
+<main class="why-agents-page">
+	<section class="page-shell">
+		@if (page(); as pageContent) {
+
+		<mat-card class="hero-card" appearance="outlined">
+			<mat-card-content>
+			<p class="eyebrow">{{ pageContent.eyebrow }}</p>
+			<h1 class="page-title mat-headline-medium">{{ pageContent.title }}</h1>
+			<p class="intro">{{ pageContent.intro }}</p>
+			</mat-card-content>
+		</mat-card>
+
+		<section class="point-grid" aria-label="Fordele og ulemper">
+			@for (group of pageContent.pointGroups; track group.id) {
+				<mat-card class="point-card" appearance="outlined" [class.point-card--warning]="group.id === 'cons'">
+					<mat-card-content>
+					<h2>{{ group.title }}</h2>
+					<p class="section-description">{{ group.description }}</p>
+					<mat-divider />
+					<ul>
+						@for (point of group.points; track point) {
+							<li>{{ point }}</li>
+						}
+					</ul>
+					</mat-card-content>
+				</mat-card>
+			}
+		</section>
+
+		<mat-card class="comparison-card" appearance="outlined" aria-labelledby="comparison-heading">
+			<mat-card-content>
+			<p class="eyebrow">{{ pageContent.comparison.eyebrow }}</p>
+			<h2 id="comparison-heading">{{ pageContent.comparison.title }}</h2>
+			<p class="intro">{{ pageContent.comparison.intro }}</p>
+			<div class="comparison-list">
+				@for (comparison of pageContent.comparison.items; track comparison.label) {
+					<mat-card class="comparison-item" appearance="outlined">
+						<mat-card-content>
+						<span class="comparison-label">{{ comparison.label }}</span>
+						<p><strong>Pro:</strong> {{ comparison.benefit }}</p>
+						<p><strong>Con:</strong> {{ comparison.tradeoff }}</p>
+						</mat-card-content>
+					</mat-card>
+				}
+			</div>
+			</mat-card-content>
+		</mat-card>
+
+		<mat-card class="next-step-card" appearance="outlined">
+			<mat-card-content>
+			<p class="eyebrow">{{ pageContent.recommendation.eyebrow }}</p>
+			<p>{{ pageContent.recommendation.text }}</p>
+			</mat-card-content>
+		</mat-card>
+		} @else {
+			<mat-card class="hero-card" appearance="outlined">
+				<mat-card-content>
+					<p class="eyebrow">Agent driven development</p>
+					<h1 class="page-title mat-headline-medium">Indlæser dokumentation...</h1>
+					<p class="intro">Siden henter indhold direkte fra `.github`-dokumentationen.</p>
+				</mat-card-content>
+			</mat-card>
+		}
+	</section>
+</main>

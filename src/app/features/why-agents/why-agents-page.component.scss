@@ -1,0 +1,165 @@
+@use '../../../theme/material-theme' as theme;
+
+:host {
+	display: block;
+	min-height: 100vh;
+}
+
+.why-agents-page {
+	min-height: 100vh;
+	padding: 20px 24px 48px;
+	background:
+		radial-gradient(circle at top right, rgba(theme.theme-color(warn), 0.14), transparent 24%),
+		radial-gradient(circle at left center, rgba(theme.theme-color(primary), 0.12), transparent 24%),
+		linear-gradient(
+			180deg,
+			theme.palette-color(theme.$app-warn-palette, 50) 0%,
+			theme.palette-color(theme.$app-primary-palette, 50) 100%
+		);
+}
+
+.page-shell {
+	width: min(100%, 1200px);
+	margin: 0 auto;
+}
+
+.hero-card,
+.point-card,
+.comparison-card,
+.next-step-card {
+	border-radius: 28px;
+	background: theme.theme-color(background, card);
+	box-shadow: 0 24px 60px rgba(theme.theme-color(foreground, base), 0.08);
+}
+
+.hero-card,
+.point-card,
+.comparison-card,
+.next-step-card {
+	overflow: hidden;
+}
+
+.eyebrow {
+	margin: 0 0 8px;
+	font-size: 0.78rem;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: theme.theme-color(primary);
+}
+
+.page-title,
+h2 {
+	margin: 0;
+	line-height: 1.04;
+	color: theme.theme-color(foreground, text);
+}
+
+.page-title {
+	max-width: none;
+	line-height: 1.02;
+}
+
+h2 {
+	font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+}
+
+.intro,
+.section-description,
+.next-step-card p,
+.comparison-item p {
+	margin: 16px 0 0;
+	line-height: 1.7;
+	color: theme.theme-color(foreground, secondary-text);
+}
+
+.point-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 18px;
+	margin-top: 22px;
+}
+
+.point-card--warning {
+	background: theme.palette-color(theme.$app-warn-palette, 50);
+}
+
+.hero-card mat-card-content,
+.point-card mat-card-content,
+.comparison-card mat-card-content,
+.next-step-card mat-card-content {
+	display: block;
+	padding: 32px;
+}
+
+mat-divider {
+	margin-top: 18px;
+}
+
+ul {
+	margin: 18px 0 0;
+	padding-left: 20px;
+	line-height: 1.7;
+	color: theme.theme-color(foreground, text);
+}
+
+li + li {
+	margin-top: 10px;
+}
+
+.comparison-card,
+.next-step-card {
+	margin-top: 18px;
+}
+
+.comparison-list {
+	display: grid;
+	gap: 14px;
+	margin-top: 20px;
+}
+
+.comparison-item {
+	min-height: 92px;
+	border-radius: 20px;
+	background: theme.palette-color(theme.$app-accent-palette, 50);
+}
+
+.comparison-item mat-card-content {
+	display: block;
+	padding: 18px;
+}
+.comparison-label {
+	display: inline-block;
+	font-weight: 700;
+	color: theme.theme-color(accent);
+}
+
+.next-step-card {
+	background: theme.palette-color(theme.$app-primary-palette, 50);
+}
+
+@media (min-width: 980px) {
+	.comparison-list {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 768px) {
+	.hero-card,
+	.point-card,
+	.comparison-card,
+	.next-step-card {
+		border-radius: 22px;
+	}
+
+	.hero-card mat-card-content,
+	.point-card mat-card-content,
+	.comparison-card mat-card-content,
+	.next-step-card mat-card-content {
+		padding: 24px;
+	}
+
+	.point-grid {
+		grid-template-columns: 1fr;
+	}
+}

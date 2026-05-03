@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@use './theme/material-theme' as theme;
+
+@include mat.core();
+@include mat.all-component-themes(theme.$app-theme);
+@include mat.typography-hierarchy(theme.$app-theme);
+@include mat.strong-focus-indicators((
+	border-style: solid,
+	border-width: 3px,
+	border-radius: 12px,
+));
+@include mat.strong-focus-indicators-theme(theme.$app-theme);
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: Roboto, 'Helvetica Neue', sans-serif;
+	background: theme.theme-color(background, background);
+	color: theme.theme-color(foreground, text);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+a {
+	color: theme.theme-color(primary);
+}
