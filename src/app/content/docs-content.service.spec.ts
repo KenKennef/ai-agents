@@ -4,8 +4,8 @@ import { HttpRequest } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { DocsContentService } from './docs-content.service';
-import { LandingPageContent, WhyAgentsPageContent } from './docs-content.models';
-import { LandingPageMarkdown } from './generated-docs';
+import { AgentSetupPageContent, LandingPageContent, WhyAgentsPageContent } from './docs-content.models';
+import { AgentSetupMarkdown, LandingPageMarkdown, WhyAgentsMarkdown } from './generated-docs';
 
 const isDocsRequest = (fileName: string) => (request: HttpRequest<unknown>) =>
 	request.url.endsWith(`/assets/docs/${fileName}`);
@@ -111,5 +111,39 @@ Comparison intro.
 		expect(result?.title).toBe(getMetadataValue(LandingPageMarkdown, 'Title'));
 		expect(result?.actions.primaryLabel).toBe(getMetadataValue(LandingPageMarkdown, 'PrimaryActionLabel'));
 		expect(result?.highlights.length).toBeGreaterThan(0);
+	});
+
+	it('falls back to generated agent setup docs when the asset request fails', () => {
+		let result: AgentSetupPageContent | undefined;
+
+		service.getAgentSetupPageContent().subscribe((content) => {
+			result = content;
+		});
+
+		httpTestingController
+			.expectOne(isDocsRequest('agent-setup.md'))
+			.flush('', { status: 404, statusText: 'Not Found' });
+
+		expect(result).toBeDefined();
+		expect(result?.eyebrow).toBe(getMetadataValue(AgentSetupMarkdown, 'Eyebrow'));
+		expect(result?.title).toBe(getMetadataValue(AgentSetupMarkdown, 'Title'));
+		expect(result?.stats.length).toBeGreaterThan(0);
+	});
+
+	it('falls back to generated why-agents docs when the asset request fails', () => {
+		let result: WhyAgentsPageContent | undefined;
+
+		service.getWhyAgentsPageContent().subscribe((content) => {
+			result = content;
+		});
+
+		httpTestingController
+			.expectOne(isDocsRequest('why-agents.md'))
+			.flush('', { status: 404, statusText: 'Not Found' });
+
+		expect(result).toBeDefined();
+		expect(result?.eyebrow).toBe(getMetadataValue(WhyAgentsMarkdown, 'Eyebrow'));
+		expect(result?.title).toBe(getMetadataValue(WhyAgentsMarkdown, 'Title'));
+		expect(result?.comparison.items.length).toBeGreaterThan(0);
 	});
 });
