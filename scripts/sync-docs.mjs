@@ -1,4 +1,4 @@
-import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -12,12 +12,13 @@ if (!existsSync(sourceDirectory)) {
 	throw new Error(`Docs source directory not found: ${sourceDirectory}`);
 }
 
+rmSync(targetDirectory, { recursive: true, force: true });
 mkdirSync(targetDirectory, { recursive: true });
 
 const docsEntries = [];
 
 for (const entry of readdirSync(sourceDirectory, { withFileTypes: true })) {
-	if (!entry.isFile()) {
+	if (!entry.isFile() || !entry.name.endsWith('.md')) {
 		continue;
 	}
 

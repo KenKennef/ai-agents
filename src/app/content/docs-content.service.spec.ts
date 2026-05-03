@@ -5,9 +5,15 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 
 import { DocsContentService } from './docs-content.service';
 import { LandingPageContent, WhyAgentsPageContent } from './docs-content.models';
+import { LandingPageMarkdown } from './generated-docs';
 
 const isDocsRequest = (fileName: string) => (request: HttpRequest<unknown>) =>
 	request.url.endsWith(`/assets/docs/${fileName}`);
+
+const getMetadataValue = (markdown: string, key: string) => {
+	const match = markdown.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
+	return match?.[1] ?? '';
+};
 
 describe('DocsContentService', () => {
 	let service: DocsContentService;
@@ -87,5 +93,23 @@ Comparison intro.
 				tradeoff: 'Kræver præcise input'
 			}
 		]);
+	});
+
+	it('falls back to generated landing docs when the asset request fails', () => {
+		let result: LandingPageContent | undefined;
+
+		service.getLandingPageContent().subscribe((content) => {
+			result = content;
+		});
+
+		httpTestingController
+			.expectOne(isDocsRequest('landing-page.md'))
+			.flush('', { status: 404, statusText: 'Not Found' });
+
+		expect(result).toBeDefined();
+		expect(result?.eyebrow).toBe(getMetadataValue(LandingPageMarkdown, 'Eyebrow'));
+		expect(result?.title).toBe(getMetadataValue(LandingPageMarkdown, 'Title'));
+		expect(result?.actions.primaryLabel).toBe(getMetadataValue(LandingPageMarkdown, 'PrimaryActionLabel'));
+		expect(result?.highlights.length).toBeGreaterThan(0);
 	});
 });
